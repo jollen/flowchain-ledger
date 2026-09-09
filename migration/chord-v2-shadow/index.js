@@ -6,5 +6,7 @@ module.exports = {
   ...require('./runtime-bridge'),
   ...require('./runtime-hook'),
   ...require('./placement-client'),
-  ...require('./topology-snapshot')
+  ...require('./topology-snapshot'),
+  ...require('./jsonl-evidence-sink'),
+  ...require('./field-runtime')
 }
