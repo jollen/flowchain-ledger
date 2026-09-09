@@ -8,6 +8,7 @@
     "test:shadow": "node test/shadow.test.js",
     "test:runtime-hook": "node test/runtime-hook.test.js",
     "test:runtime-bridge": "node test/runtime-bridge.test.js",
-    "test": "npm run test:shadow && npm run test:runtime-hook && npm run test:runtime-bridge"
+    "test:placement-client": "node test/placement-client.test.js",
+    "test": "npm run test:shadow && npm run test:runtime-hook && npm run test:runtime-bridge && npm run test:placement-client"
   }
 }
