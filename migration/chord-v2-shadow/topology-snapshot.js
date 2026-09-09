@@ -7,6 +7,12 @@ function normalizeHex(value) {
   throw new TypeError('identifier must be bigint, number, or hex string');
 }
 
+function toSpaceId(space, value) {
+  var hex = normalizeHex(value);
+  if (typeof space.fromHex === 'function') return space.fromHex(hex);
+  return space.normalize('0x' + hex);
+}
+
 function clonePeer(peer) {
   if (!peer || typeof peer.id === 'undefined' || peer.id === null) return null;
   return Object.freeze({
@@ -110,16 +116,16 @@ class LegacyTopologySnapshotAdapter {
     var state = new Map();
     for (var pair of snapshot.nodes.entries()) {
       var legacy = pair[1];
-      var id = space.normalize(legacy.id);
-      var successor = legacy.successor ? space.normalize(legacy.successor.id) : id;
+      var id = toSpaceId(space, legacy.id);
+      var successor = legacy.successor ? toSpaceId(space, legacy.successor.id) : id;
       var fingers = legacy.fingers.map(function(entry) {
-        return { successor: space.normalize(entry.successor.id) };
+        return { successor: toSpaceId(space, entry.successor.id) };
       });
       state.set(id.toString(), Object.freeze({ id: id, successor: successor, fingers: Object.freeze(fingers) }));
     }
 
     return Object.freeze({
-      startId: space.normalize(snapshot.rootId),
+      startId: toSpaceId(space, snapshot.rootId),
       space: space,
       getNode: function(id) { return state.get(space.normalize(id).toString()) || null; },
       isLive: function(id) { return state.has(space.normalize(id).toString()); },
@@ -132,5 +138,6 @@ class LegacyTopologySnapshotAdapter {
 module.exports = {
   LegacyTopologySnapshotAdapter: LegacyTopologySnapshotAdapter,
   snapshotLegacyNode: snapshotLegacyNode,
-  normalizeHex: normalizeHex
+  normalizeHex: normalizeHex,
+  toSpaceId: toSpaceId
 };
