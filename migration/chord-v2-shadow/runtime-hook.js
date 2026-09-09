@@ -1,6 +1,7 @@
 'use strict';
 
 var Chord = require('../../p2p/libs/message');
+var resolveRuntimeObserver = require('./runtime-bridge').resolveRuntimeObserver;
 
 function swallowAsync(result) {
   if (result && typeof result.then === 'function' && typeof result.catch === 'function') {
@@ -10,8 +11,7 @@ function swallowAsync(result) {
 
 function emitNonBlocking(node, event) {
   try {
-    if (!node || !node.server || !node.server._options) return false;
-    var observer = node.server._options.onChordV2ShadowObservation;
+    var observer = resolveRuntimeObserver(node);
     if (typeof observer !== 'function') return false;
     swallowAsync(observer(event));
     return true;
