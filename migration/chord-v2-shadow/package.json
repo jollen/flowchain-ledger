@@ -1,0 +1,10 @@
+{
+  "name": "flowchain-ledger-chord-v2-shadow",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node test/shadow.test.js"
+  }
+}
