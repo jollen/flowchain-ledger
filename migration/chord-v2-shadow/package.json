@@ -7,6 +7,7 @@
   "scripts": {
     "test:shadow": "node test/shadow.test.js",
     "test:runtime-hook": "node test/runtime-hook.test.js",
-    "test": "npm run test:shadow && npm run test:runtime-hook"
+    "test:runtime-bridge": "node test/runtime-bridge.test.js",
+    "test": "npm run test:shadow && npm run test:runtime-hook && npm run test:runtime-bridge"
   }
 }
