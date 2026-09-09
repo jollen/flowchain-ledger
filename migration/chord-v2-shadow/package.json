@@ -10,6 +10,7 @@
     "test:runtime-bridge": "node test/runtime-bridge.test.js",
     "test:placement-client": "node test/placement-client.test.js",
     "test:topology-snapshot": "node test/topology-snapshot.test.js",
-    "test": "npm run test:shadow && npm run test:runtime-hook && npm run test:runtime-bridge && npm run test:placement-client && npm run test:topology-snapshot"
+    "test:field-runtime": "node test/field-runtime.test.js",
+    "test": "npm run test:shadow && npm run test:runtime-hook && npm run test:runtime-bridge && npm run test:placement-client && npm run test:topology-snapshot && npm run test:field-runtime"
   }
 }
