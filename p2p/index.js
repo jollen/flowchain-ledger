@@ -29,5 +29,18 @@
 'use strict';
 
 
-if (typeof(module) != "undefined" && typeof(exports) != "undefined")
-  module.exports = require('./libs/node');
+if (typeof(module) != "undefined" && typeof(exports) != "undefined") {
+  var Node = require('./libs/node');
+
+  // Chord v2 migration is observation-only at this stage. The hook wraps
+  // FOUND_SUCCESSOR notifications after the legacy owner has already been
+  // selected and never changes the legacy dispatch result.
+  try {
+    require('../migration/chord-v2-shadow/runtime-hook').installRuntimeHook(Node);
+  } catch (error) {
+    // Shadow instrumentation must never prevent the historical runtime from
+    // loading or serving traffic.
+  }
+
+  module.exports = Node;
+}
