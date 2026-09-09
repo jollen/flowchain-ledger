@@ -5,6 +5,8 @@
     "node": ">=18"
   },
   "scripts": {
-    "test": "node test/shadow.test.js"
+    "test:shadow": "node test/shadow.test.js",
+    "test:runtime-hook": "node test/runtime-hook.test.js",
+    "test": "npm run test:shadow && npm run test:runtime-hook"
   }
 }
